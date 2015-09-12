@@ -1,6 +1,11 @@
 FROM jpazdyga/centos7-base
 MAINTAINER Jakub Pazdyga <jakub.pazdyga@ft.com>
 
+ENV AWS_ACCESS_KEY XXXX
+ENV AWS_SECRET_ACCESS_KEY XXXXXXXX
+ENV container docker
+ENV DATE_TIMEZONE UTC
+
 RUN rpmdb --rebuilddb && \ 
     rpmdb --initdb && \
     yum clean all && \
@@ -88,6 +93,11 @@ RUN mkdir -p /etc/ssl/private && \
 	chmod +x /usr/sbin/nginxsetup.sh && \
         bash -x /usr/sbin/nginxsetup.sh
 
+ADD sm_scheduler.sh /usr/sbin/sm_scheduler.sh
+ADD sm_api_server.sh /usr/sbin/sm_api_server.sh
+ADD botocfg.sh /usr/sbin/botocfg.sh
+RUN chmod +x /usr/sbin/sm_scheduler.sh && chmod +x /usr/sbin/sm_api_server.sh && chmod +x /usr/sbin/botocfg.sh && bash -x /usr/sbin/botocfg.sh
+RUN echo -e "export PYTHONPATH=\"/usr/local/src/security_monkey\"\nexport SECURITY_MONKEY_SETTINGS=\"/usr/local/src/security_monkey/env-config/config-deploy.py\"" > /usr/sbin/sm_environment.env
 COPY supervisord.conf /etc/supervisor.d/supervisord.conf
 CMD ["/usr/bin/supervisord", "-n", "-c/etc/supervisor.d/supervisord.conf"]
 
