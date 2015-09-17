@@ -6,6 +6,7 @@ iam = boto.connect_iam()
 AccountId = iam.get_user()['get_user_response']['get_user_result']['user']['arn'].split(':')[4]
 
 UserPolicyName = "SM_ASSUMEROLE"
+RolePolicyName = "SecurityMonkeyReadOnly"
 
 trusted_relationships_json = '''{
   "Version": "2008-10-17",

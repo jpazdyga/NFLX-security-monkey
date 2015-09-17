@@ -49,7 +49,10 @@ def securitymonkeyuserpolicydump():
 
 def securitymonkeyrolepolicyname():
     SecurityMonkeyRolePolicyName = iam.get_role_policy('SecurityMonkey','SecurityMonkeyReadOnly').policy_name
-    print(SecurityMonkeyRolePolicyName);
+    upname = SecurityMonkeyRolePolicyName
+    a = upname
+    b = RolePolicyName
+    comparestring(a, b)
 
 def securitymonkeyrolepolicydump():
     SecurityMonkeyRolePolicyDump = iam.get_role_policy('SecurityMonkey','SecurityMonkeyReadOnly').policy_document
