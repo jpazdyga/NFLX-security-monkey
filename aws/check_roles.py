@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
 try:
- import json
+     import json
 except ImportError:
- import simplejson as json
+     import simplejson as json
 
 import time
 import sys, getopt
@@ -20,16 +20,25 @@ def comparejson(a, b):
     else:
         ## JSONs are different ##
         print("1");
-#        print(a);
-#        print(b);
-#        print(jsoncompare.are_same(a, b)[1])
+
+def comparestring(a, b):
+    result = a == b
+    if result == True:
+        ## Strings are the same ##
+        print("0");
+    else:
+        ## Strings are different ##
+        print("1");
 
 def usage():
     print("Usage: " + sys.argv[0] + " [user-policy-name|user-policy-document|role-policy-name|role-policy-document|role-trusted]" )
 
 def securitymonkeyuserpolicyname():
-    SecurityMonkeyUserPolicy = iam.get_all_user_policies('security_monkey_docker_user').policy_names
-    print(SecurityMonkeyUserPolicy);
+    SecurityMonkeyUserPolicyName = iam.get_all_user_policies('security_monkey_docker_user').policy_names
+    upname = SecurityMonkeyUserPolicyName[0]
+    a = upname
+    b = UserPolicyName
+    comparestring(a, b)
 
 def securitymonkeyuserpolicydump():
     SecurityMonkeyUserPolicyDump = iam.get_user_policy('security_monkey_docker_user','SM_ASSUMEROLE').policy_document
