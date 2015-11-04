@@ -1,0 +1,29 @@
+- name: Install screen
+  yum: name=screen state=latest
+
+- copy: src=screenrc dest=/etc/screenrc
+
+- lineinfile: dest=/etc/sudoers state=absent regexp="^%wheel"
+
+- lineinfile: "dest=/etc/sudoers state=present regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL'"
+
+- lineinfile: "dest=/etc/sudoers state=present regexp='^Defaults' line='Defaults:postgres !requiretty'"
+
+- lineinfile: dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication yes"
+
+- lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no"
+
+- lineinfile: dest=/etc/ssh/sshd_config regexp="^UseDNS" line="UseDNS no"
+
+- name: Restart SSH Daemon
+  shell: service sshd restart
+
+- file: path=/var/log/security_monkey state=directory mode=0755 owner=apache group=apache
+
+- file: path=/var/www state=directory mode=0755 owner=apache group=apache
+
+- file: path=/var/log/security_monkey/security_monkey.error.log state=touch mode=0644 owner=apache group=apache
+
+- file: path=/var/log/security_monkey/security_monkey.access.log state=touch mode=0644 owner=apache group=apache
+
+- file: path=/var/log/security_monkey/security_monkey-deploy.log state=touch mode=0644 owner=apache group=apache

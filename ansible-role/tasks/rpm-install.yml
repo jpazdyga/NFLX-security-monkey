@@ -1,0 +1,40 @@
+- name: install packages
+  yum: name={{item}} state=installed
+  with_items:
+    - python
+    - python-devel
+    - python-psycopg2
+    - nginx
+    - postgresql-server
+    - libffi-devel
+    - openssl-devel
+    - libpqxx-devel
+    - gcc
+    - postgresql
+    - libpqxx-devel
+    - openssh
+    - openssl
+    - openssl-devel
+    - psmisc
+    - openssh-server
+    - PyYAML
+    - git
+    - httpd
+    - swig
+    - unzip
+    - libcurl-devel
+    - gpgme-devel
+    - pyliblzma
+    - xz-devel
+    - xz-libs
+    - libattr-devel
+    - python-setuptools
+    - python-pip
+
+- name: update python setuptools, pip install PyYAML
+  pip: name={{item}} state=latest
+  with_items:
+    - pip
+    - setuptools
+
+- easy_install: name=PyYAML

@@ -1,0 +1,16 @@
+- name: Initialize the Postgres database
+  shell: rm -fr /var/lib/pgsql/data && runuser -l postgres -c '/usr/bin/initdb --pgdata=/var/lib/pgsql/data --auth=ident'
+  args:
+    creates: /var/lib/pgsql/data/pg_hba.conf
+
+- name: Start the database
+  command: runuser -l postgres -c '/usr/bin/postgres -D /var/lib/pgsql/data -p 5432 &'
+
+- pause: seconds=10
+
+- copy: src=pgsetup.sh dest=/usr/sbin/pgsetup.sh mode=0755
+
+- name: deploy database schema
+  command: bash -x /usr/sbin/pgsetup.sh
+  args:
+    creates: /var/lib/pgsql/data/postgresetup
