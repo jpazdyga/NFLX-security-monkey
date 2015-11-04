@@ -1,9 +1,0 @@
-- copy: src=sm_api_server.sh dest=/usr/sbin/sm_api_server.sh mode=0755
-
-- copy: src=sm_scheduler.sh dest=/usr/sbin/sm_scheduler.sh mode=0755
-
-- name: Run Security Monkey API server
-  shell: if [ `ps x | grep run_api_server | grep -v grep ; echo $?` -eq "1" ]; then /usr/sbin/sm_api_server.sh; fi
-
-- name: Run Security Monkey Scheduler
-  shell: if [ `ps x | grep run_api_server | grep -v grep ; echo $?` -eq "1" ]; then /usr/sbin/sm_scheduler; fi

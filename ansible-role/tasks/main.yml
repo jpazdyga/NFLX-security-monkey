@@ -1,9 +1,0 @@
----
-- include: repo-config.yml
-- include: rpm-install.yml
-- include: system-setup.yml
-- include: postgresql-setup.yml
-- include: securitymonkey-setup.yml
-- include: nginx-setup.yml
-- include: boto-setup.yml
-- include: run-securitymonkey.yml

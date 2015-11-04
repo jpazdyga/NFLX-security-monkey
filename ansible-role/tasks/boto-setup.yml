@@ -1,6 +1,0 @@
-- copy: src=botocfg.sh dest=/usr/sbin/botocfg.sh mode=0755
-
-- name: Deploy boto credentials
-  command: /usr/sbin/botocfg.sh
-  args:
-    creates: /etc/boto.cfg

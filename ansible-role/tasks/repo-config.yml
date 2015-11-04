@@ -1,5 +1,0 @@
----
-- name: configure epel yum repository
-  command: yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-  args:
-    creates: /etc/yum.repos.d/epel.repo
